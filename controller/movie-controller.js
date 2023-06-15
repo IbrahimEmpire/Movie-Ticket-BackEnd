@@ -78,3 +78,18 @@ export const getMovieById = async(req, res, next)=>{
      }
      return res.status(200).json({movie })
 }
+
+export const deletMovie = async(req, res, next)=>{
+    const id = req.params.id
+    let user;
+    try {
+        user = await Movie.findByIdAndRemove(id)
+    } catch (error) {
+        console.log(error)
+        
+    }
+    if(!user){
+       return res.status(500).json({message: "movie Not Fount"})
+    }
+    return res.status(200).json({message:"movie deleted succsess"})
+}
